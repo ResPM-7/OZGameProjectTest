@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         if (isMove)
         {
             if(!isJumping)
-                anim.SetFloat("Speed", currentSpeed);
+                anim.SetFloat("Speed", currentSpeed);//점프중일때 걷는 애니메이션이 안나오게
 
             Vector3 lookForward = new Vector3(cameraTransform.forward.x, 0f, cameraTransform.forward.z).normalized;
             Vector3 lookRight = new Vector3(cameraTransform.right.x, 0f, cameraTransform.right.z).normalized;
@@ -95,10 +95,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground" && isJumping)
+        if (collision.gameObject.CompareTag("Ground") && isJumping)
         {
             isLanding = true;
-            anim.SetBool("IsGrounded", true);
+            anim.SetBool("IsGrounded", true);//착지 애니메이션 실행
             Invoke("JumpingDelay", delay);
         }
     }
