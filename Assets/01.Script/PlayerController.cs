@@ -14,7 +14,12 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private Rigidbody rb;
 
+    private int animaMove = Animator.StringToHash("Speed");
+    private int animaJump = Animator.StringToHash("Jump");
+    private int animaIsGround = Animator.StringToHash("IsGrounded");
+
     private Vector2 moveInput;
+    private Vector3 targetMoveDir;
     private bool isJumping = false;
     private bool isRunning = false;
     private bool isLanding = false; //착지할때 잠시 못움직이게
@@ -26,6 +31,11 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         currentSpeed = walkSpeed;
+    }
+
+    private void FixedUpdate()
+    {
+        ApplyPhysics();
     }
 
     private void Update()
@@ -56,7 +66,8 @@ public class PlayerController : MonoBehaviour
     {
         if(isLanding)
         {
-            anim.SetFloat("Speed", 0f);
+            anim.SetFloat(animaMove, 0f);
+            targetMoveDir = Vector3.zero;
             return;
         }
 
@@ -65,30 +76,45 @@ public class PlayerController : MonoBehaviour
         if (isMove)
         {
             if(!isJumping)
-                anim.SetFloat("Speed", currentSpeed);//점프중일때 걷는 애니메이션이 안나오게
+                anim.SetFloat(animaMove, currentSpeed);//점프중일때 걷는 애니메이션이 안나오게
 
             Vector3 lookForward = new Vector3(cameraTransform.forward.x, 0f, cameraTransform.forward.z).normalized;
             Vector3 lookRight = new Vector3(cameraTransform.right.x, 0f, cameraTransform.right.z).normalized;
 
-            Vector3 moveDir = (lookForward * moveInput.y) + (lookRight * moveInput.x);
-
-            Quaternion viewRot = Quaternion.LookRotation(moveDir.normalized);//플레이어가 볼 위치
-            transform.rotation = Quaternion.Lerp(transform.rotation, viewRot, Time.deltaTime * rotationSpeed);//플레이어 회전할때 기계적으로 움직이지 않고 부드럽게
-
-            transform.position += moveDir * currentSpeed * Time.deltaTime;
+            targetMoveDir = (lookForward * moveInput.y) + (lookRight * moveInput.x);
         }
         else
         {
-            anim.SetFloat("Speed", 0f);
+            anim.SetFloat(animaMove, 0f);
+            targetMoveDir = Vector3.zero;
         }
     }
+
+    private void ApplyPhysics()
+    {
+        if (isLanding) return;
+
+        bool isMove = targetMoveDir.magnitude != 0;
+
+        if (isMove)
+        {
+            Quaternion viewRot = Quaternion.LookRotation(targetMoveDir.normalized);
+            rb.MoveRotation(Quaternion.Lerp(rb.rotation, viewRot, Time.fixedDeltaTime * rotationSpeed));
+        }
+
+        Vector3 targetVelocity = targetMoveDir * currentSpeed;
+        targetVelocity.y = rb.linearVelocity.y;
+
+        rb.linearVelocity = targetVelocity;
+    }
+
 
     private void Jump()
     {
         isJumping = true;
 
-        anim.SetBool("Jump", true);
-        anim.SetBool("IsGrounded", false);
+        anim.SetBool(animaJump, true);
+        anim.SetBool(animaIsGround, false);
 
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
@@ -98,7 +124,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") && isJumping)
         {
             isLanding = true;
-            anim.SetBool("IsGrounded", true);//착지 애니메이션 실행
+            anim.SetBool(animaIsGround, true);//착지 애니메이션 실행
             Invoke("JumpingDelay", delay);
         }
     }
@@ -108,6 +134,6 @@ public class PlayerController : MonoBehaviour
     {
         isJumping = false;
         isLanding = false;
-        anim.SetBool("Jump", false);
+        anim.SetBool(animaJump, false);
     }
 }
