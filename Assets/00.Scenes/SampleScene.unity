@@ -409,6 +409,52 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!1 &373774611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 373774613}
+  - component: {fileID: 373774612}
+  m_Layer: 0
+  m_Name: UiManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &373774612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373774611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 457d8e867cb607a4e9a9564f866cb2ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UiManager
+  hpSlider: {fileID: 78051799}
+  playerCharacter: {fileID: 5708564038165076614}
+--- !u!4 &373774613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373774611}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.66602, y: -0, z: -7.28698}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &388114870
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,27 +1123,14 @@ GameObject:
   - component: {fileID: 586301502}
   - component: {fileID: 586301501}
   - component: {fileID: 586301500}
-  - component: {fileID: 586301499}
+  - component: {fileID: 586301504}
   m_Layer: 0
-  m_Name: PoisonSwamp (1)
+  m_Name: PoisonSwamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &586301499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586301498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 235f6472e96c9b140b835c5634df0cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestAttack
-  damage: 10
 --- !u!136 &586301500
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1146,7 +1179,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 3a524d1eca72916448e2884bce1b3f32, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1187,12 +1220,28 @@ Transform:
   m_GameObject: {fileID: 586301498}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.67, y: 0.33973634, z: -7.52}
+  m_LocalPosition: {x: -8.38, y: 0.33973634, z: -5.94}
   m_LocalScale: {x: 3, y: 0.14, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &586301504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586301498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af15d822eb1ae2442ab1fd950bcc3ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloorEffect
+  isHeal: 0
+  damage: 5
+  healing: 5
+  tickRate: 1
 --- !u!1 &594563745
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,28 +2296,14 @@ GameObject:
   - component: {fileID: 2029158326}
   - component: {fileID: 2029158325}
   - component: {fileID: 2029158324}
-  - component: {fileID: 2029158323}
+  - component: {fileID: 2029158328}
   m_Layer: 0
-  m_Name: PoisonSwamp
+  m_Name: HealFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2029158323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029158322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af15d822eb1ae2442ab1fd950bcc3ff1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PoisonSwamp
-  damage: 5
-  tickRate: 1
 --- !u!136 &2029158324
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2317,7 +2352,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 11dd4d86d94fe514a9383f4a3cdc2b25, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2358,12 +2393,28 @@ Transform:
   m_GameObject: {fileID: 2029158322}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7645073, y: 0.33973634, z: -8.6}
+  m_LocalPosition: {x: -9.11, y: 0.33973634, z: -10.13}
   m_LocalScale: {x: 3, y: 0.14, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2029158328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029158322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af15d822eb1ae2442ab1fd950bcc3ff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FloorEffect
+  isHeal: 1
+  damage: 5
+  healing: 5
+  tickRate: 1
 --- !u!1 &2117965964
 GameObject:
   m_ObjectHideFlags: 0
@@ -5340,6 +5391,7 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 388114873}
   - {fileID: 410087041}
+  - {fileID: 373774613}
   - {fileID: 832575519}
   - {fileID: 1128689162}
   - {fileID: 1282544938}

@@ -7,11 +7,12 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected int currentHp;
     [SerializeField] protected int damage;
 
+    public int MaxHp { get { return maxHp; } }
     public int CurrentHp { get { return currentHp; } }
 
     public event Action OnHpChanged;
 
-    private void Start()
+    private void Awake()
     {
         currentHp = maxHp;
     }
