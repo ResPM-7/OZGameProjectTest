@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Character : MonoBehaviour
@@ -5,6 +6,10 @@ public abstract class Character : MonoBehaviour
     [SerializeField] protected int maxHp;
     [SerializeField] protected int currentHp;
     [SerializeField] protected int damage;
+
+    public int CurrentHp { get { return currentHp; } }
+
+    public event Action OnHpChanged;
 
     private void Start()
     {
@@ -15,7 +20,12 @@ public abstract class Character : MonoBehaviour
     {
         currentHp -= damage;
 
-        if(currentHp < 0 ) currentHp = 0;
+        if (currentHp <= 0)
+        {
+            currentHp = 0;
+            Die();
+        }
+        OnHpChanged?.Invoke();
     }
     public abstract void Attack();
 

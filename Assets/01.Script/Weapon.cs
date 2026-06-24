@@ -15,12 +15,6 @@ public class Weapon : MonoBehaviour
                 hitCharacter.Hit(damage);
             }
 
-            DummyMonster dummy = other.GetComponent<DummyMonster>();
-
-            if (dummy != null)
-            {
-                dummy.TakeDamage(damage);
-            }
         }
     }
 }

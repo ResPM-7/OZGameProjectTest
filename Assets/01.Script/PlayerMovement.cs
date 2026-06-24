@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     private int animaAttack = Animator.StringToHash("Attack");
     private int animaAttackCount = Animator.StringToHash("AttackCount");
 
+    private int animaHit = Animator.StringToHash("Hit");
+    private bool isHit = false;
+
     //private PlayerCharacter playerCharacter;//플레이어 공격할때 이펙트나 소리 사용할때 미리
 
     private Vector2 moveInput;
@@ -53,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         currentSpeed = walkSpeed;
         attackResetWait = new WaitForSeconds(endAttackDelay);
-        jumpWaitDealy= new WaitForSeconds(jumpDelay);
+        jumpWaitDealy = new WaitForSeconds(jumpDelay);
     }
 
     private void FixedUpdate()
@@ -73,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if (value.isPressed && !isJumping && !isLanding && !isAttacking)
+        if (value.isPressed && !isJumping && !isLanding && !isAttacking && !isHit)
         {
             Jump();
         }
@@ -81,13 +84,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnAttack(InputValue value)
     {
-        if (value.isPressed && !isJumping && !isLanding )
+        if (value.isPressed && !isJumping && !isLanding && !isHit)
         {
             if (isAttacking && comboStep == 3) return; //왼쪽 클릭을 계속하다가 3타 끝날때쯤 왼클릭을 그만두면 isAttack이 활성화 되어있어서 플레이어 못 움직여서 넣음
 
             if (!isAttacking || canNextAttack)
             {
-                if (Time.time - lastAttackTime > comboResetTime || comboStep >= 3)
+                if (!isAttacking)//2타 공격중 exit가기 직전에 클릭하면 count가 3이되어버림 하지만 실제 애니메이션은 idle로 가버림 attack에 문제가 생기기떄문에 이렇게 수정
+                {
+                    comboStep = 0;
+                }
+                else if (Time.time - lastAttackTime > comboResetTime || comboStep >= 3)
                 {
                     comboStep = 0;
                 }
@@ -118,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (isLanding || isAttacking)
+        if (isLanding || isAttacking || isHit)
         {
             anim.SetFloat(animaMove, 0f);
             targetMoveDir = Vector3.zero;
@@ -146,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyPhysics()
     {
-        if (isLanding || isAttacking)
+        if (isLanding || isAttacking || isHit)
         {
             rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
             return;
@@ -228,14 +235,25 @@ public class PlayerMovement : MonoBehaviour
         ResetAttack();
     }
 
-    private void ResetAttack()
+    private void ResetAttack()// 2타 문제를 count 3가 되어버리는문제에서 다른문제 isattack= true가 되어버려서 2타 애니메이션 끝에 event를 넣어 문제해결
     {
         isAttacking = false;
+        comboStep = 0;
+        anim.SetInteger(animaAttackCount, 0);
+    }
 
-        if (Time.time - lastAttackTime > comboResetTime || comboStep == 3)
-        {
-            comboStep = 0;
-            anim.SetInteger(animaAttackCount, 0);
-        }
+    public void TakeHit()
+    {
+        isHit = true;
+        isAttacking = false;
+        comboStep = 0;
+
+        anim.SetInteger(animaAttackCount, 0);
+        anim.SetTrigger(animaHit);
+    }
+
+    public void EndHit()
+    {
+        isHit = false;
     }
 }
