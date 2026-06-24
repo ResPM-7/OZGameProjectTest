@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,12 +8,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 7f;
     [SerializeField] private float rotationSpeed = 10f; // 캐릭터가 도는 속도
     [SerializeField] private float jumpForce = 10f; // 점프 힘
-    [SerializeField] private float delay = 0.4f; // 점프하고 바닥착지할때 잠시 멈추게하기
+    [SerializeField] private float jumpDelay = 0.4f; // 점프하고 바닥착지할때 잠시 멈추게하기
 
     [SerializeField] private Transform cameraTransform; // 메인 카메라 연결 필수
 
     [Header("공격 설정")]
     [SerializeField] private float comboResetTime = 1.0f; // 시간 지나면 1타로 초기화
+    [SerializeField] private float endAttackDelay = 0.5f; // 마지막 공격후 딜레이 
 
     private Animator anim;
     private Rigidbody rb;
@@ -24,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private int animaAttack = Animator.StringToHash("Attack");
     private int animaAttackCount = Animator.StringToHash("AttackCount");
 
-    private PlayerCharacter playerCharacter;//플레이어 공격할때 이펙트나 소리 사용할때 미리
+    //private PlayerCharacter playerCharacter;//플레이어 공격할때 이펙트나 소리 사용할때 미리
 
     private Vector2 moveInput;
     private Vector3 targetMoveDir;
@@ -34,16 +36,24 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
 
     private bool isAttacking = false;
+    private bool canNextAttack = false;
+    private bool isComboQueued = false; // 다음콤보 대기중
     private int comboStep = 0;
     private float lastAttackTime = 0f;
+    private WaitForSeconds attackResetWait;
+
+    private WaitForSeconds jumpWaitDealy;
+
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        playerCharacter = GetComponent<PlayerCharacter>();
+        //playerCharacter = GetComponent<PlayerCharacter>();
         Cursor.lockState = CursorLockMode.Locked;
         currentSpeed = walkSpeed;
+        attackResetWait = new WaitForSeconds(endAttackDelay);
+        jumpWaitDealy= new WaitForSeconds(jumpDelay);
     }
 
     private void FixedUpdate()
@@ -71,20 +81,32 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnAttack(InputValue value)
     {
-        if (value.isPressed && !isJumping && !isLanding && !isAttacking)
+        if (value.isPressed && !isJumping && !isLanding )
         {
-            if (Time.time - lastAttackTime > comboResetTime || comboStep >= 3)
+            if (isAttacking && comboStep == 3) return; //왼쪽 클릭을 계속하다가 3타 끝날때쯤 왼클릭을 그만두면 isAttack이 활성화 되어있어서 플레이어 못 움직여서 넣음
+
+            if (!isAttacking || canNextAttack)
             {
-                comboStep = 0;
+                if (Time.time - lastAttackTime > comboResetTime || comboStep >= 3)
+                {
+                    comboStep = 0;
+                }
+
+                if (isAttacking && canNextAttack)
+                {
+                    isComboQueued = true;
+                }
+
+                comboStep++;
+
+                isAttacking = true;
+                canNextAttack = false;
+                lastAttackTime = Time.time;
+
+                anim.SetInteger(animaAttackCount, comboStep);
+                anim.SetTrigger(animaAttack);
+
             }
-            comboStep++;
-
-            isAttacking = true;
-            lastAttackTime = Time.time;
-
-            anim.SetInteger(animaAttackCount, comboStep);
-            anim.SetTrigger(animaAttack);
-
         }
     }
 
@@ -161,28 +183,49 @@ public class PlayerMovement : MonoBehaviour
         {
             isLanding = true;
             anim.SetBool(animaIsGround, true);//착지 애니메이션 실행
-            Invoke("JumpingDelay", delay);
+            StartCoroutine(JumpingDelay());
         }
     }
 
 
-    void JumpingDelay()
+    IEnumerator JumpingDelay()
     {
+        yield return jumpWaitDealy;
         isJumping = false;
         isLanding = false;
         anim.SetBool(animaJump, false);
     }
 
-    public void EndAttack()
+    public void NextAttack() // 애니메이션 이벤트 Nextattack <= anim < EndAttack 사이에서만 다음공격 애니메이션 실행
     {
+        canNextAttack = true;
+    }
+
+    public void EndAttack()//애니메이션 이벤트 이구간을 지나면 다음 공격애니메이션실행 안됨 다시처음부터
+    {
+        canNextAttack = false;
+
+        if (isComboQueued)
+        {
+            isComboQueued = false;
+            return;
+        }
+
         if (comboStep == 3)
         {
-            Invoke("ResetAttack", 0.5f);
+            StartCoroutine(DelayedResetAttack());
         }
         else
         {
             ResetAttack();
         }
+    }
+
+    private IEnumerator DelayedResetAttack()
+    {
+        yield return attackResetWait;
+
+        ResetAttack();
     }
 
     private void ResetAttack()

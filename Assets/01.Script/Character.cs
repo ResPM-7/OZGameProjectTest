@@ -2,20 +2,26 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
-    [SerializeField] protected int hp;
+    [SerializeField] protected int maxHp;
+    [SerializeField] protected int currentHp;
     [SerializeField] protected int damage;
+
+    private void Start()
+    {
+        currentHp = maxHp;
+    }
 
     public virtual void Hit(int damage)
     {
-        hp -= damage;
+        currentHp -= damage;
 
-        if(hp < 0 ) hp = 0;
+        if(currentHp < 0 ) currentHp = 0;
     }
     public abstract void Attack();
 
     public bool IsAlive()
     {
-        return hp > 0;
+        return currentHp > 0;
     }
 
     public virtual void Die()

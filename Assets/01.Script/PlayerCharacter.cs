@@ -20,6 +20,16 @@ public class PlayerCharacter : Character
 
     }
 
+    public void Heal(int healAmount)
+    {
+        currentHp += healAmount;
+
+        if(currentHp > maxHp)
+        {
+            currentHp = maxHp;
+        }
+    }
+
     public void EnableWeapon()
     {
         weaponCollider.enabled = true;
