@@ -28,6 +28,19 @@ public abstract class Character : MonoBehaviour
         }
         OnHpChanged?.Invoke();
     }
+
+
+    public virtual void Heal(int healAmount)
+    {
+        currentHp += healAmount;
+
+        if (currentHp > maxHp)
+        {
+            currentHp = maxHp;
+        }
+        OnHpChanged?.Invoke();
+    }
+
     public abstract void Attack();
 
     public bool IsAlive()
