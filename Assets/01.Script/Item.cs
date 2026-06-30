@@ -11,6 +11,7 @@ public enum ItemType
 public class Item
 {
     public ItemType itemType;
+    public int itemID;
     public string itemName;
     public Sprite itemImg;
     public string itemDesc;
