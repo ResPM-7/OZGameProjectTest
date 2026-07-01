@@ -723,6 +723,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 136358110}
+  - component: {fileID: 136358111}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -753,6 +754,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
+--- !u!114 &136358111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136358109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13c6509d972d1924ea13593d9d71ff3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemTooltip
+  tooltipObject: {fileID: 1364100137}
+  itemNameText: {fileID: 2043900358}
+  itemDescText: {fileID: 1501120667}
 --- !u!1001 &151583010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5049,7 +5065,6 @@ GameObject:
   - component: {fileID: 1282544937}
   - component: {fileID: 1282544936}
   - component: {fileID: 1282544935}
-  - component: {fileID: 1282544939}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5141,21 +5156,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1282544939
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282544934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13c6509d972d1924ea13593d9d71ff3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemTooltip
-  tooltipObject: {fileID: 1364100137}
-  itemNameText: {fileID: 2043900358}
-  itemDescText: {fileID: 1501120667}
 --- !u!224 &1294211627 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4810785279715163236, guid: e9db0ff26ae7a5b4f81564cb238add48, type: 3}

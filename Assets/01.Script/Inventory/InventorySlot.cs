@@ -7,10 +7,17 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 {
     [SerializeField] private Image iconImage;
 
+    private ItemTooltip tooltip;
+
     private Item item;
 
     private int slotIndex;
     private PlayerInventory inventory;
+
+    private void Awake()
+    {
+        tooltip = GetComponentInParent<ItemTooltip>();
+    }
 
     public void SetupSlot(int index, PlayerInventory inven)
     {
@@ -45,14 +52,14 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         if (item != null)
         {
-            ItemTooltip.Instance.ShowTooltip(item);
+            tooltip.ShowTooltip(item);
         }
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         if (item != null)
         {
-            ItemTooltip.Instance.HideTooltip();
+            tooltip.HideTooltip();
         }
     }
 }
