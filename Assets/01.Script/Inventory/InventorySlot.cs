@@ -1,3 +1,4 @@
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Image iconImage;
+    [SerializeField] private TextMeshProUGUI countText;
 
     private ItemTooltip tooltip;
 
@@ -32,6 +34,21 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         iconImage.sprite = item.itemImg;
         iconImage.enabled = true;
+
+        UpdateCountUI(item.currentCount);
+    }
+
+    public void UpdateCountUI(int count)
+    {
+        if (count > 1)
+        {
+            countText.text = count.ToString();
+            countText.enabled = true;
+        }
+        else
+        {
+            countText.enabled = false;
+        }
     }
 
     public void ClearSlot()

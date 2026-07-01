@@ -24,15 +24,32 @@ public class PlayerInventory : MonoBehaviour
 
     public bool AcquireItem(Item item)
     {
-        for (int i = 0; i < items.Length; i++)
+        if (item.isStackable)
         {
-            if (items[i] == null)
+            for (int i = 0; i < items.Length; i++)
             {
+                if (items[i] != null && items[i].itemID == item.itemID)
+                {
+                    items[i].currentCount++;
+                    slots[i].UpdateCountUI(items[i].currentCount);
+                    return true;
+
+                    
+                }
+            }
+        }
+        for(int i = 0; i<items.Length; i++)
+        {
+            if(items[i] == null)
+            {
+                Item newItem = new Item(item);
+
                 items[i] = item;
                 slots[i].AddItem(item);
                 return true;
             }
         }
+
         return false;
     }
 
@@ -42,7 +59,7 @@ public class PlayerInventory : MonoBehaviour
         {
             bool isUsed = items[index].Use(player);
 
-            if(isUsed)
+            if (isUsed)
             {
                 items[index] = null;
                 slots[index].ClearSlot();

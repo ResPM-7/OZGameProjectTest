@@ -15,6 +15,9 @@ public class Item
     public string itemName;
     public Sprite itemImg;
     public string itemDesc;
+    public int currentCount = 1;
+    public bool isStackable;
+
     public int amount;
 
     public bool Use(PlayerCharacter player)
