@@ -9951,14 +9951,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aae4de0ec2a66c498ff43ddfc71edb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  currentState: 0
   walkSpeed: 5
   runSpeed: 7
   rotationSpeed: 10
   jumpForce: 10
   jumpDelay: 0.4
   cameraTransform: {fileID: 330585546}
-  comboResetTime: 1.7
-  endAttackDelay: 0.5
 --- !u!54 &5708564038165076611
 Rigidbody:
   m_ObjectHideFlags: 0
