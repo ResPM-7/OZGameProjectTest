@@ -35,7 +35,7 @@ public class FieldItem : MonoBehaviour
                 if(isLooted)
                 {
                     string poolKey = gameObject.name.Replace("(Clone)", "");
-                    ObjectPoolManager.Instance.ReturnObject(poolKey, gameObject);
+                    ObjectPoolManager.instance.ReturnObject(poolKey, gameObject);
                 }
             }
         }

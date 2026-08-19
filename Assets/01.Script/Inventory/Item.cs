@@ -14,8 +14,20 @@ public class Item
     public int itemID;
     public string itemName;
     public Sprite itemImg;
-    public string itemDesc;
-    public int amount;
+    public string itemDesc;//섫명창
+    public int amount; //데미지나 포션회복 등등
+    public int price;
+
+    public Item(Item other)
+    {
+        this.itemType = other.itemType;
+        this.itemID = other.itemID;
+        this.itemName = other.itemName;
+        this.itemImg = other.itemImg;
+        this.itemDesc = other.itemDesc;
+        this.amount = other.amount;
+        this.price = other.price;
+    }
 
     public bool Use(PlayerCharacter player)
     {
@@ -25,5 +37,10 @@ public class Item
             return true;
         }
         return false;
+    }
+
+    public Item Clone()
+    {
+        return new Item(this);
     }
 }
