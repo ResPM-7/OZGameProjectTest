@@ -94,6 +94,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void OnShop(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            if (ShopController.instance != null)
+            {
+                ShopController.instance.ToggleShop();
+            }
+        }
+    }
+
     public void OnAttack(InputValue value)
     {
         if (value.isPressed)

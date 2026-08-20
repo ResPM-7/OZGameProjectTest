@@ -43,13 +43,12 @@ public class ShopSlot : MonoBehaviour
         if (priceText != null) priceText.text = itemData.price.ToString();
     }
 
-    // 버튼을 클릭했을 때 실행될 함수
+    // 구매실행 버튼할당
     private void OnBuyButtonClicked()
     {
         if (itemData != null)
         {
-            //싱글톤을 호출하여 구매 실행
-            ShopManager.instance.BuyItem(itemData);
+            ShopController.instance.BuyItem(itemData);
         }
     }
 }

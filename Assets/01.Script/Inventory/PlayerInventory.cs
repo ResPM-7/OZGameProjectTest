@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         slots = slotParent.GetComponentsInChildren<InventorySlot>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCharacter>();
+        player = GetComponent<PlayerCharacter>();
         items = new Item[slots.Length];
 
         for (int i = 0; i < slots.Length; i++)
