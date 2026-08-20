@@ -30,7 +30,7 @@ public class PlayerCharacter : Character
         base.Hit(damage);
         if (movement != null)
         {
-            movement.TakeHit();
+            //movement.TakeHit();
         }
     }
 
