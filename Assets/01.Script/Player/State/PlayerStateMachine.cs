@@ -10,8 +10,8 @@ public class PlayerStateMachine : MonoBehaviour
     [field: SerializeField] public float JumpDelay { get; private set; } = 0.4f;
 
     [Header("Combat Settings")] 
-    public int ComboStep = 0;
-    public bool CanNextAttack = false;
+    [HideInInspector] public int ComboStep = 0;
+    [HideInInspector] public bool CanNextAttack = false;
 
     public readonly int AnimMove = Animator.StringToHash("Speed");
     public readonly int AnimJump = Animator.StringToHash("Jump");

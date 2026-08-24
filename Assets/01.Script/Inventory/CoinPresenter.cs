@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CoinPresenter : MonoBehaviour
 {
+    //MVP패턴으로 코인구현
     [SerializeField] private CoinView coinView; // 인스펙터에서 View 연결
     [SerializeField] private int startCoin;
 
@@ -10,7 +11,6 @@ public class CoinPresenter : MonoBehaviour
 
     private void Awake()
     {
-        // 1. 모델 초기화
         Model = new CoinModel(startCoin);
     }
 

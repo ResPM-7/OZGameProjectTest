@@ -3002,6 +3002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c6509d972d1924ea13593d9d71ff3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemTooltip
+  isDontDestroy: 0
   tooltipObject: {fileID: 1364100137}
   itemNameText: {fileID: 2043900358}
   itemDescText: {fileID: 1501120667}
@@ -3294,7 +3295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinPresenter
   coinView: {fileID: 545859641}
-  startCoin: 5000
+  startCoin: 20
 --- !u!114 &545859641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12982,7 +12983,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d9da9b2a-ddc3-4de3-a094-a95efc689237
     m_ActionName: 'Player/Shop[/Keyboard/p]'
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: KeyboardMouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1

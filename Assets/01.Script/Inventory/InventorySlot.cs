@@ -30,8 +30,13 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public void ClearSlot()
     {
         item = null;
-
         iconImage.sprite = null;
+        
+        //슬롯이 비워질 때 떠있는 툴팁이 있을때가 있어 숨기기
+        if (ItemTooltip.instance != null)
+        {
+            ItemTooltip.instance.HideTooltip();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -45,14 +50,14 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     {
         if (item != null)
         {
-            ItemTooltip.Instance.ShowTooltip(item);
+            ItemTooltip.instance.ShowTooltip(item);
         }
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         if (item != null)
         {
-            ItemTooltip.Instance.HideTooltip();
+            ItemTooltip.instance.HideTooltip();
         }
     }
 }

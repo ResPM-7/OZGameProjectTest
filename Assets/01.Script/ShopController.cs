@@ -37,19 +37,18 @@ public class ShopController : Singleton<ShopController>
     public void BuyItem(Item itemToBuy)
     {
         //코인이 충분한가?
-        if (coinPresenter.Model.TryConsumeCoins(itemToBuy.price))
+        if (coinPresenter.Model.HasEnoughCoins(itemToBuy.price))
         {
-            // 2. 인벤토리에 추가 시도
+            // 인벤토리에 추가 시도
             bool isAcquired = playerInventory.AcquireItem(itemToBuy.Clone());
 
             if (isAcquired)
             {
-                //돈차감
+                coinPresenter.Model.AddCoins(-itemToBuy.price);
                 ShowMessage($"{itemToBuy.itemName} 구매 완료");
             }
             else
             {
-                coinPresenter.Model.AddCoins(itemToBuy.price);
                 ShowMessage("인벤토리가 가득 찼습니다");
             }
         }
