@@ -119,53 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &11216419
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 11216421}
-  - component: {fileID: 11216420}
-  m_Layer: 0
-  m_Name: ShopManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &11216420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 11216419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e57c6a2509d50b46be9fe501b41c176, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShopManager
-  isDontDestroy: 0
-  shopUI: {fileID: 490597875}
-  playerInventory: {fileID: 5708564038165076616}
---- !u!4 &11216421
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 11216419}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 796.1182, y: -0.00002, z: 1389.4832}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &27853919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12832,12 +12785,12 @@ GameObject:
   - component: {fileID: 5708564038165076613}
   - component: {fileID: 5708564038165076612}
   - component: {fileID: 5708564038165076611}
+  - component: {fileID: 5708564038165076619}
+  - component: {fileID: 5708564038165076618}
   - component: {fileID: 5708564038165076614}
-  - component: {fileID: 5708564038165076610}
   - component: {fileID: 5708564038165076615}
   - component: {fileID: 5708564038165076616}
   - component: {fileID: 5708564038165076617}
-  - component: {fileID: 5708564038165076618}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -12845,25 +12798,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5708564038165076610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5708564038165076609}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aae4de0ec2a66c498ff43ddfc71edb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  currentState: 0
-  walkSpeed: 5
-  runSpeed: 7
-  rotationSpeed: 10
-  jumpForce: 10
-  jumpDelay: 0.4
-  cameraTransform: {fileID: 330585546}
 --- !u!54 &5708564038165076611
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13035,7 +12969,7 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d9da9b2a-ddc3-4de3-a094-a95efc689237
     m_ActionName: 'Player/Shop[/Keyboard/p]'
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: KeyboardMouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -13047,7 +12981,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5708564038165076609}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb0586d44fd526142855cbcade19682c, type: 3}
   m_Name: 
@@ -13068,6 +13002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217597c481acd1b4b88b8470a3906663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
+  isDontDestroy: 0
   InventoryUI: {fileID: 1805927895}
 --- !u!114 &5708564038165076616
 MonoBehaviour:
@@ -13111,6 +13046,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36963391b53bc8408ce25fd92951eee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
+--- !u!114 &5708564038165076619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5708564038165076609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9abe862e25457fe4aa6e6a0d4c7735a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStateMachine
+  <WalkSpeed>k__BackingField: 5
+  <RunSpeed>k__BackingField: 7
+  <RotationSpeed>k__BackingField: 10
+  <JumpForce>k__BackingField: 10
+  <JumpDelay>k__BackingField: 0.4
+  ComboStep: 0
+  CanNextAttack: 0
 --- !u!1 &5848333495489347285
 GameObject:
   m_ObjectHideFlags: 0
@@ -14050,7 +14004,6 @@ SceneRoots:
   - {fileID: 545859639}
   - {fileID: 924222069}
   - {fileID: 832575519}
-  - {fileID: 11216421}
   - {fileID: 1128689162}
   - {fileID: 772868845}
   - {fileID: 1282544938}

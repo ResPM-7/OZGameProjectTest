@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class PlayerAttackBehaviour : StateMachineBehaviour
 {
-    private PlayerMovement player;
+    private PlayerStateMachine player;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (player == null) { player = animator.GetComponent<PlayerMovement>(); }
+        if (player == null) { player = animator.GetComponent<PlayerStateMachine>(); }
 
-        player.SetNextAttackReady(false);
+        player.CanNextAttack = false;
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (stateInfo.normalizedTime >= 0.6f)
         {
-            player.SetNextAttackReady(true);
+            player.CanNextAttack = true;
         }
     }
 
@@ -23,9 +23,10 @@ public class PlayerAttackBehaviour : StateMachineBehaviour
     {
         if (player != null)
         {
+            // 다음 애니메이션이 "Attack" 태그가 아니라면 (즉, 연타가 끊겼다면)
             if (!animator.GetNextAnimatorStateInfo(layerIndex).IsTag("Attack"))
             {
-                player.ResetCombo();
+                player.ResetCombo(); // FSM에게 콤보 초기화 및 Idle 상태 복귀 명령
             }
         }
     }

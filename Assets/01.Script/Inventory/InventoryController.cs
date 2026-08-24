@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InventoryController : MonoBehaviour
+public class InventoryController : Singleton<InventoryController>
 {
     [SerializeField] private GameObject InventoryUI;
 
@@ -12,15 +12,8 @@ public class InventoryController : MonoBehaviour
         InventoryUI.SetActive(false);
     }
 
-    public void OnInventory(InputValue value)
-    {
-        if (value.isPressed)
-        {
-            ToggleInventory();
-        }
-    }
 
-    private void ToggleInventory()
+    public void ToggleInventory()
     {
         isInventoryOpen = !isInventoryOpen;
 

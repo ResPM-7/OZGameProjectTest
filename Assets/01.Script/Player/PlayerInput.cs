@@ -25,11 +25,11 @@ public class PlayerInput : MonoBehaviour
     //점프 처리
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed) IsRunning = true;
-        else if (context.canceled) IsRunning = false;
+        if (context.performed) IsJumpPressed = true;
+        else if (context.canceled) IsJumpPressed = false;
     }
 
-    //3. 공격 처리
+    //공격 처리
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.performed) IsAttackPressed = true;
@@ -53,7 +53,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("인벤토리 열기/닫기");
+            InventoryController.instance.ToggleInventory();
         }
     }
 

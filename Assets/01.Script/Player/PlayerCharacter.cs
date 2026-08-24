@@ -8,13 +8,13 @@ public class PlayerCharacter : Character
     [SerializeField] private Weapon playerWeapon;
 
     private Collider weaponCollider;
-    private PlayerMovement movement;
+    private PlayerStateMachine movement;
 
 
     private void Start()
     {
         weaponCollider = playerWeapon.GetComponent<Collider>();
-        movement = GetComponent<PlayerMovement>();
+        movement = GetComponent<PlayerStateMachine>();
         weaponCollider.enabled = false;
 
         playerWeapon.damage = this.damage;
@@ -30,7 +30,7 @@ public class PlayerCharacter : Character
         base.Hit(damage);
         if (movement != null)
         {
-            //movement.TakeHit();
+            movement.TakeHit();
         }
     }
 
