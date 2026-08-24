@@ -3257,7 +3257,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 545859639}
-  - component: {fileID: 545859638}
+  - component: {fileID: 545859641}
+  - component: {fileID: 545859640}
   m_Layer: 0
   m_Name: CoinManager
   m_TagString: Untagged
@@ -3265,21 +3266,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &545859638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 545859637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f7dc68c1b1be84ba83aff6a7b9c558, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoinManager
-  isDontDestroy: 0
-  coins: 50000
-  coinText: {fileID: 700335731}
 --- !u!4 &545859639
 Transform:
   m_ObjectHideFlags: 0
@@ -3295,6 +3281,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &545859640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545859637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e0ee8a6fdc114b448cbba9ab1e377b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinPresenter
+  coinView: {fileID: 545859641}
+  startCoin: 5000
+--- !u!114 &545859641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545859637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79954e16a83276d4088823c586528737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinUI
+  coinText: {fileID: 700335731}
 --- !u!1 &558153099
 GameObject:
   m_ObjectHideFlags: 0
@@ -13032,6 +13045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopController
   isDontDestroy: 0
+  coinPresenter: {fileID: 545859640}
   shopPanel: {fileID: 490597875}
   systemMessageText: {fileID: 384657198}
 --- !u!114 &5708564038165076618

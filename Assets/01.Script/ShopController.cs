@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class ShopController : Singleton<ShopController>
 {
     [Header("UI 연결")]
+    [SerializeField] private CoinPresenter coinPresenter; //코인 MVP패턴연결
     [SerializeField] private GameObject shopPanel; // 상점 전체 UI 패널
     [SerializeField] private TextMeshProUGUI systemMessageText; // 중앙 경고 메시지 텍스트
 
@@ -29,14 +30,14 @@ public class ShopController : Singleton<ShopController>
         // 상점이 열려있을 때는 시간을 멈춤
         Time.timeScale = isOpen ? 0f : 1f;
 
-        // 마우스 커서 상태 변경
         Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isOpen;
     }
 
     public void BuyItem(Item itemToBuy)
     {
         //코인이 충분한가?
-        if (CoinManager.instance.HasEnoughCoins(itemToBuy.price))
+        if (coinPresenter.Model.TryConsumeCoins(itemToBuy.price))
         {
             // 2. 인벤토리에 추가 시도
             bool isAcquired = playerInventory.AcquireItem(itemToBuy.Clone());
@@ -44,11 +45,11 @@ public class ShopController : Singleton<ShopController>
             if (isAcquired)
             {
                 //돈차감
-                CoinManager.instance.UpdateCoins(-itemToBuy.price);
                 ShowMessage($"{itemToBuy.itemName} 구매 완료");
             }
             else
             {
+                coinPresenter.Model.AddCoins(itemToBuy.price);
                 ShowMessage("인벤토리가 가득 찼습니다");
             }
         }
