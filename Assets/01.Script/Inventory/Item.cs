@@ -18,6 +18,9 @@ public class Item
     public int amount; //데미지나 포션회복 등등
     public int price;
 
+    public int count = 1; //몇개나 겹쳐있는지 확인
+    public int maxStack = 99; //최대 수량
+
     public Item(Item other)
     {
         this.itemType = other.itemType;
@@ -26,7 +29,9 @@ public class Item
         this.itemImg = other.itemImg;
         this.itemDesc = other.itemDesc;
         this.amount = other.amount;
-        this.price = other.price;
+        this.price = other.price; 
+        this.count = other.count;
+        this.maxStack = other.maxStack;
     }
 
     public bool Use(PlayerCharacter player)

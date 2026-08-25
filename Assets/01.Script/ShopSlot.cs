@@ -10,7 +10,8 @@ public class ShopSlot : MonoBehaviour
     [Header("UI 연결")]
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI priceText;
-    [SerializeField] private Button bnuyButton;
+    [SerializeField] private Button buyButton;
+
 
     private void Awake()
     {
@@ -28,9 +29,9 @@ public class ShopSlot : MonoBehaviour
         }
 
         //버튼 클릭 이벤트 코드로 연결
-        if (bnuyButton != null)
+        if (buyButton != null)
         {
-            bnuyButton.onClick.AddListener(OnBuyButtonClicked);
+            buyButton.onClick.AddListener(OnBuyButtonClicked);
         }
     }
 
@@ -46,7 +47,7 @@ public class ShopSlot : MonoBehaviour
     // 구매실행 버튼할당
     private void OnBuyButtonClicked()
     {
-        if (itemData != null)
+        if (itemData != null && ShopController.instance != null)
         {
             ShopController.instance.BuyItem(itemData);
         }

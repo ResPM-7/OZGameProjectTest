@@ -26,6 +26,16 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 0; i < items.Length; i++)
         {
+            if (items[i] != null && items[i].itemID == item.itemID && items[i].count < items[i].maxStack)
+            {
+                items[i].count += item.count;
+                slots[i].UpdateSlotCount();
+                return true;
+            }
+        }
+
+        for (int i = 0; i < items.Length; i++)
+        {
             if (items[i] == null)
             {
                 items[i] = item;
@@ -44,8 +54,19 @@ public class PlayerInventory : MonoBehaviour
 
             if(isUsed)
             {
-                items[index] = null;
-                slots[index].ClearSlot();
+                items[index].count--;
+
+                if (items[index].count <= 0)
+                {
+                    // 0개가 되면 슬롯을 완전히 비움
+                    items[index] = null;
+                    slots[index].ClearSlot();
+                }
+                else
+                {
+                    // 아직 남아있다면 숫자만 갱신
+                    slots[index].UpdateSlotCount();
+                }
             }
         }
     }

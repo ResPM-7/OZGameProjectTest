@@ -984,7 +984,7 @@ MonoBehaviour:
   targetItemID: 1
   itemIcon: {fileID: 1856610845}
   priceText: {fileID: 1411641568}
-  bnuyButton: {fileID: 1616768683}
+  buyButton: {fileID: 1616768683}
 --- !u!1001 &227385879
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1758,7 +1758,7 @@ MonoBehaviour:
   targetItemID: 10
   itemIcon: {fileID: 1540919532}
   priceText: {fileID: 384595341}
-  bnuyButton: {fileID: 1488150182}
+  buyButton: {fileID: 1488150182}
 --- !u!1001 &370897855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3295,7 +3295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinPresenter
   coinView: {fileID: 545859641}
-  startCoin: 20
+  startCoin: 99999
 --- !u!114 &545859641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5260,6 +5260,8 @@ MonoBehaviour:
     itemDesc: "\uD50C\uB808\uC774\uC5B4 10\uD68C\uBCF5"
     amount: 10
     price: 10
+    count: 1
+    maxStack: 99
   - itemType: 1
     itemID: 2
     itemName: BigPotion
@@ -5267,6 +5269,8 @@ MonoBehaviour:
     itemDesc: "\uD50C\uB808\uC774\uC5B4 20\uD68C\uBCF5"
     amount: 20
     price: 20
+    count: 1
+    maxStack: 99
   - itemType: 0
     itemID: 10
     itemName: Axe
@@ -5274,6 +5278,8 @@ MonoBehaviour:
     itemDesc: "\uAE30\uBCF8 \uBB34\uAE30"
     amount: 10
     price: 500
+    count: 1
+    maxStack: 99
 --- !u!4 &924222069
 Transform:
   m_ObjectHideFlags: 0
@@ -8578,7 +8584,7 @@ MonoBehaviour:
   targetItemID: 2
   itemIcon: {fileID: 1107614571}
   priceText: {fileID: 934391867}
-  bnuyButton: {fileID: 647794332}
+  buyButton: {fileID: 647794332}
 --- !u!1 &1585573757
 GameObject:
   m_ObjectHideFlags: 0
